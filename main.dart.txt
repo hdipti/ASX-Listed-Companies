@@ -21,16 +21,14 @@ class ASXCompanyList extends StatelessWidget {
 
 // The Company class that with details of the listed companies
 class Company {
-  const Company({this.name, this.asxCode, this.group, this.sharePrice, this.trend});
+  const Company({this.name, this.asxCode, this.group, this.sharePrice, this.isTrending});
 
   final String name;
   final String asxCode;
   final String group;
   final String sharePrice;
-  final String trend;
+  final String isTrending;
 }
-
-// final String server = defaultTargetPlatform == TargetPlatform.android ? "10.0.2.2" : "localhost";
 
 // A demo list of companies
 final List<Company> _companies = <Company> [
@@ -39,49 +37,49 @@ final List<Company> _companies = <Company> [
       asxCode: "COL",
       group: "Food & Staples Retailing",
       sharePrice: "18.630",
-      trend: "fall"
+      isTrending: "yes" 
   ),
   Company(
       name: "JB HI-FI LIMITED",
       asxCode: "JBH",
       group: "Retailing",
       sharePrice: "50.940",
-      trend: "fall"
+      isTrending: "no"
   ),
   Company(
       name: "SEEK LIMITED",
       asxCode: "SEK",
       group: "Media & Entertainment",
       sharePrice: "19.880",
-      trend: "rise"
+      isTrending: "yes"
   ),
   Company(
-      name: "AUSTRALIA AND NEW ZEALAND BANKING GROUP LIMITED",
+      name: "AU AND NZ BANKING",
       asxCode: "ANZ",
       group: "Banks",
       sharePrice: "18.380",
-      trend: "rise"
+      isTrending: "no"
   ),
    Company(
       name: "AUSTRALIA AND NEW ZEALAND BANKING GROUP LIMITED",
       asxCode: "ANZ",
       group: "Banks",
       sharePrice: "18.380",
-      trend: "rise"
+      isTrending: "yes"
   ),
    Company(
       name: "AUSTRALIA AND NEW ZEALAND BANKING GROUP LIMITED",
       asxCode: "ANZ",
       group: "Banks",
       sharePrice: "18.380",
-      trend: "rise"
+      isTrending: "no"
   ),
    Company(
       name: "AUSTRALIA AND NEW ZEALAND BANKING GROUP LIMITED",
       asxCode: "ANZ",
       group: "Banks",
       sharePrice: "18.380",
-      trend: "rise"
+      isTrending: "yes"
   )
 ];
 
@@ -96,8 +94,7 @@ class ASXCompanyListPage extends StatelessWidget {
             Text(company.sharePrice),
             Text(company.name),
             Text(company.group),
-            // add button to show trend
-            ],
+           ],
         );
    } 
 
@@ -109,15 +106,28 @@ class ASXCompanyListPage extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.only(left: 16.0),
         alignment: Alignment.topLeft,
-        child: Column(
+        child: Row(
             children: <Widget>[
-                      Text(_companies[index].asxCode,
-                        style: Theme.of(context).textTheme.headline),
-                      Text(_companies[index].sharePrice),
-                      Text(_companies[index].name),
-                      Text(_companies[index].group),
+                    Column(
+                        children: <Widget>[
+                            Text(_companies[index].asxCode,
+                            style: Theme.of(context).textTheme.headline),
+                            Text(_companies[index].sharePrice),
+                            Text(_companies[index].name),
+                            Text(_companies[index].group),
+                        ]                    
+                    ),
+                    Column(
+                        children: <Widget>[
+                                   Icon(Icons.arrow_upward,
+                                    color: Colors.green,
+                                    size: 24.0,
+                                    semanticLabel: "Rise",
+                                    )
+                                ]       
+                        ),
                     ],
-                 )
+                )
          ),
     );
   }
@@ -133,7 +143,7 @@ class ASXCompanyListPage extends StatelessWidget {
         // The List 
         ListView.builder(
             itemCount: _companies.length,
-            itemExtent: 120.0,
+            itemExtent: 150.0,
             itemBuilder: _listItemBuilder,
         ),
         // The floating button
