@@ -1,0 +1,183 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+
+void main() => runApp(ASXCompanyList());
+
+class ASXCompanyList extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      // Application name
+      title: 'ASX Listed Companies',
+      theme: ThemeData( // Title color
+        primarySwatch: Colors.blue,
+      ),
+      // A widget which will be started on application startup
+      home: ASXCompanyListPage(),
+    );
+  }
+}
+
+// The Company class that with details of the listed companies
+class Company {
+  const Company({this.name, this.asxCode, this.group, this.sharePrice, this.trend});
+
+  final String name;
+  final String asxCode;
+  final String group;
+  final String sharePrice;
+  final String trend;
+}
+
+// final String server = defaultTargetPlatform == TargetPlatform.android ? "10.0.2.2" : "localhost";
+
+// A demo list of companies
+final List<Company> _companies = <Company> [
+  Company(
+      name: "COLES GROUP LIMITED.",
+      asxCode: "COL",
+      group: "Food & Staples Retailing",
+      sharePrice: "18.630",
+      trend: "fall"
+  ),
+  Company(
+      name: "JB HI-FI LIMITED",
+      asxCode: "JBH",
+      group: "Retailing",
+      sharePrice: "50.940",
+      trend: "fall"
+  ),
+  Company(
+      name: "SEEK LIMITED",
+      asxCode: "SEK",
+      group: "Media & Entertainment",
+      sharePrice: "19.880",
+      trend: "rise"
+  ),
+  Company(
+      name: "AUSTRALIA AND NEW ZEALAND BANKING GROUP LIMITED",
+      asxCode: "ANZ",
+      group: "Banks",
+      sharePrice: "18.380",
+      trend: "rise"
+  ),
+   Company(
+      name: "AUSTRALIA AND NEW ZEALAND BANKING GROUP LIMITED",
+      asxCode: "ANZ",
+      group: "Banks",
+      sharePrice: "18.380",
+      trend: "rise"
+  ),
+   Company(
+      name: "AUSTRALIA AND NEW ZEALAND BANKING GROUP LIMITED",
+      asxCode: "ANZ",
+      group: "Banks",
+      sharePrice: "18.380",
+      trend: "rise"
+  ),
+   Company(
+      name: "AUSTRALIA AND NEW ZEALAND BANKING GROUP LIMITED",
+      asxCode: "ANZ",
+      group: "Banks",
+      sharePrice: "18.380",
+      trend: "rise"
+  )
+];
+
+class ASXCompanyListPage extends StatelessWidget {
+  //final String title;
+  const ASXCompanyListPage({Key key}): super(key: key);
+
+  Widget _dialogBuilder(BuildContext context, Company company){
+    return SimpleDialog(
+        children: <Widget>[
+            Text(company.asxCode),
+            Text(company.sharePrice),
+            Text(company.name),
+            Text(company.group),
+            // add button to show trend
+            ],
+        );
+   } 
+
+  Widget _listItemBuilder(BuildContext context, int index) {
+    return new GestureDetector(
+      onTap: ()=> showDialog(
+        context: context,
+        builder: (context) => _dialogBuilder(context, _companies[index])),
+      child: Container(
+        padding: const EdgeInsets.only(left: 16.0),
+        alignment: Alignment.topLeft,
+        child: Column(
+            children: <Widget>[
+                      Text(_companies[index].asxCode,
+                        style: Theme.of(context).textTheme.headline),
+                      Text(_companies[index].sharePrice),
+                      Text(_companies[index].name),
+                      Text(_companies[index].group),
+                    ],
+                 )
+         ),
+    );
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Today's Share Prices"),
+      ),
+      body: 
+        // The List 
+        ListView.builder(
+            itemCount: _companies.length,
+            itemExtent: 120.0,
+            itemBuilder: _listItemBuilder,
+        ),
+        // The floating button
+        floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Add your onPressed code here!
+        },
+        child: Icon(Icons.keyboard_arrow_up),
+        backgroundColor: Colors.blue,
+        ),
+
+        // The drawer
+        drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              child: Text('ASX Listed Companies',
+                     style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 24),
+                    ),
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+            ),
+            ListTile(
+              title: Text('Graphs'),
+              onTap: () {
+                // TODO : add what happens on tap
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text('Tables'),
+              onTap: () {
+                // TODO : add what happens on tap
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
+
+    );
+  }
+}
