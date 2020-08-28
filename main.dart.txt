@@ -1,8 +1,8 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(ASXCompanyList());
 
+// The widget that builds the MaterialApp
 class ASXCompanyList extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -19,97 +19,20 @@ class ASXCompanyList extends StatelessWidget {
   }
 }
 
-// The Company class that with details of the listed companies
-class Company {
-  const Company({this.name, this.asxCode, this.group, this.sharePrice, this.isTrending});
-
-  final String name;
-  final String asxCode;
-  final String group;
-  final String sharePrice;
-  final String isTrending;
-}
-
-// A demo list of companies
-final List<Company> _companies = <Company> [
-  Company(
-      name: "COLES GROUP LIMITED.",
-      asxCode: "COL",
-      group: "Food & Staples Retailing",
-      sharePrice: "18.630",
-      isTrending: "yes" 
-  ),
-  Company(
-      name: "JB HI-FI LIMITED",
-      asxCode: "JBH",
-      group: "Retailing",
-      sharePrice: "50.940",
-      isTrending: "no"
-  ),
-  Company(
-      name: "SEEK LIMITED",
-      asxCode: "SEK",
-      group: "Media & Entertainment",
-      sharePrice: "19.880",
-      isTrending: "yes"
-  ),
-  Company(
-      name: "AU AND NZ BANKING",
-      asxCode: "ANZ",
-      group: "Banks",
-      sharePrice: "18.380",
-      isTrending: "no"
-  ),
-   Company(
-      name: "AUSTRALIA AND NEW ZEALAND BANKING GROUP LIMITED",
-      asxCode: "ANZ",
-      group: "Banks",
-      sharePrice: "18.380",
-      isTrending: "yes"
-  ),
-   Company(
-      name: "AUSTRALIA AND NEW ZEALAND BANKING GROUP LIMITED",
-      asxCode: "ANZ",
-      group: "Banks",
-      sharePrice: "18.380",
-      isTrending: "no"
-  ),
-   Company(
-      name: "AUSTRALIA AND NEW ZEALAND BANKING GROUP LIMITED",
-      asxCode: "ANZ",
-      group: "Banks",
-      sharePrice: "18.380",
-      isTrending: "yes"
-  )
-];
-
+// The class that creates the Scaffold, ListView, Floating Button, Icon
 class ASXCompanyListPage extends StatelessWidget {
   //final String title;
   const ASXCompanyListPage({Key key}): super(key: key);
 
-  Widget _dialogBuilder(BuildContext context, Company company){
-    return SimpleDialog(
-        children: <Widget>[
-            Text(company.asxCode),
-            Text(company.sharePrice),
-            Text(company.name),
-            Text(company.group),
-           ],
-        );
-   } 
-
   Widget _listItemBuilder(BuildContext context, int index) {
-    return new GestureDetector(
-      onTap: ()=> showDialog(
-        context: context,
-        builder: (context) => _dialogBuilder(context, _companies[index])),
-      child: Container(
-        padding: const EdgeInsets.only(left: 16.0),
+    return new Container(
+        padding: const EdgeInsets.only(left: 16.0, top: 5.0),
         alignment: Alignment.topLeft,
         child: Row(
             children: <Widget>[
                     Column(
-                        children: <Widget>[
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[ 
                             Text(_companies[index].asxCode,
                             style: Theme.of(context).textTheme.headline),
                             Text(_companies[index].sharePrice),
@@ -124,13 +47,12 @@ class ASXCompanyListPage extends StatelessWidget {
                                     size: 24.0,
                                     semanticLabel: "Rise",
                                     )
-                                ]       
+                                ]      
                         ),
-                    ],
-                )
-         ),
-    );
-  }
+                ]
+            )
+        );
+    }
 
 
   @override
@@ -191,3 +113,59 @@ class ASXCompanyListPage extends StatelessWidget {
     );
   }
 }
+
+// The Company class that with details of the listed companies
+class Company {
+  const Company({this.name, this.asxCode, this.group, this.sharePrice});
+
+  final String name;
+  final String asxCode;
+  final String group;
+  final String sharePrice;
+}
+
+// A demo list of companies
+final List<Company> _companies = <Company> [
+  Company(
+      name: "COLES GROUP LIMITED.",
+      asxCode: "COL",
+      group: "Food & Staples Retailing",
+      sharePrice: "18.630" 
+  ),
+  Company(
+      name: "JB HI-FI LIMITED",
+      asxCode: "JBH",
+      group: "Retailing",
+      sharePrice: "50.940"
+  ),
+  Company(
+      name: "SEEK LIMITED",
+      asxCode: "SEK",
+      group: "Media & Entertainment",
+      sharePrice: "19.880"
+  ),
+  Company(
+      name: "COCA-COLA AMATIL LIMITED",
+      asxCode: "CCL",
+      group: "Food, Beverage & Tobacco",
+      sharePrice: "9.293"
+  ),
+    Company(
+      name: "TELSTRA CORPORATION LIMITED.",
+      asxCode: "TLS",
+      group: "Telecommunication Services",
+      sharePrice: "2.905"
+  ),
+    Company(
+      name: "THE REJECT SHOP LIMITED",
+      asxCode: "TRS",
+      group: "Retailing",
+      sharePrice: "7.056"
+  ),
+    Company(
+      name: "WOOLWORTHS GROUP LIMITED",
+      asxCode: "WOW",
+      group: "Food & Staples Retailing",
+      sharePrice: "39.770"
+  )
+];
